@@ -18,7 +18,7 @@ import re
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'  # 세션을 파일 시스템에 저장
 Session(app)
-openai.api_key = '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'
+openai.api_key = 'yourapikey'
 
 cred = credentials.Certificate("someandchatkey.json")
 # Firebase 앱을 초기화합니다.
