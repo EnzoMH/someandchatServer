@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>썸앤챗</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    @media (max-width: 768px) {
+      /* 모바일 화면 크기에 대한 스타일 */
+      .menu-item {
+        font-size: 12px;
+      }
+    }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .menu-item:hover {
+    text-decoration: underline;
+  }
+  .main-content {
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+</head>
+<body class="bg-[#FDF7FD]">
+<div class="container mx-auto px-4">
+  <header class="flex justify-between items-center py-4">
+    <h1 class="text-2xl font-bold">썸앤챗</h1>
+    <nav>
+      <ul class="flex space-x-8">
+        <li class="menu-item"><a href="/">홈</a></li>
+        <li class="menu-item"><a href="/someanalysis">썸 분석</a></li>
+        <li class="menu-item"><a href="/chatRoom">채팅</a></li>
+        <li class="menu-item"><a href="/hotplace">핫플레이스</a></li>
+        <li class="menu-item"><a id="logout-button" href="#">로그아웃</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="mt-16">
+      <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-10">✨지금! 핫 플레이스📸</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Place 1 -->
+            <a href="/hotplace/seoul">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://source.unsplash.com/random/?seoul" alt="서울" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h2 class="text-2xl font-bold mb-2">서울</h2>
+                        <p class="text-gray-700 mb-4">🌟✨ 클릭 한 번으로 핫플레이스 탐험 시작! ✨🌟</p>
+                    </div>
+                </div>
+            </a>
+            <!-- Place 2 -->
+            <a href="/hotplace/busan">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://source.unsplash.com/random/?busan" alt="부산" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h2 class="text-2xl font-bold mb-2">부산</h2>
+                        <p class="text-gray-700 mb-4">🌟✨ 클릭 한 번으로 핫플레이스 탐험 시작! ✨🌟</p>
+                    </div>
+                </div>
+            </a>
+            <!-- Place 3 -->
+            <a href="/hotplace/jeju">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="https://source.unsplash.com/random/?jeju" alt="제주도" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h2 class="text-2xl font-bold mb-2">제주도</h2>
+                        <p class="text-gray-700 mb-4">🌟✨ 클릭 한 번으로 핫플레이스 탐험 시작! ✨🌟</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // JavaScript 코드를 추가합니다.
+  document.addEventListener("DOMContentLoaded", function () {
+    // 로그아웃 버튼을 클릭했을 때
+    const logoutButton = document.querySelector("#logout-button");
+    if (logoutButton) {
+      logoutButton.addEventListener("click", function () {
+        // /logout 엔드포인트로 POST 요청을 보냅니다.
+        fetch("/logout", {
+          method: "POST",
+        })
+          .then(function (response) {
+            if (response.ok) {
+              // 로그아웃 성공 시 /login 페이지로 리디렉션합니다.
+              window.location.href = "/login";
+            } else {
+              // 로그아웃 실패 또는 이미 로그아웃된 경우 처리할 내용을 추가합니다.
+              console.error("로그아웃 실패 또는 이미 로그아웃된 상태입니다.");
+            }
+          })
+          .catch(function (error) {
+            console.error("로그아웃 요청 중 오류 발생:", error);
+          });
+      });
+    }
+  });
+</script>
+</body>
+</html>

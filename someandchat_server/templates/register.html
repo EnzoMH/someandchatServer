@@ -1,0 +1,162 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>썸앤챗</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+      @media (max-width: 768px) {
+        /* 모바일 화면 크기에 대한 스타일 */
+        .menu-item {
+          font-size: 12px;
+        }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      .fade-in {
+        animation: fadeIn 2s ease-in-out;
+      }
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+    }
+    .menu-item:hover {
+      text-decoration: underline;
+    }
+    .main-content {
+      padding: 1rem;
+      background-color: #ffffff;
+      border-radius: 0.5rem;
+      margin-top: 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .input-field {
+        border: 2px solid #00000020;
+        background-color: #00000010;
+        border-radius: 8px;
+      }
+      .input-field::placeholder {
+        color: #00000090;
+      }
+      .social-button {
+        border: 2px solid #00000020;
+        border-radius: 9999px;
+      }
+      h1.text-gray-800 {
+        margin-bottom: 30px; /* 여백 추가 */
+      }
+  </style>
+  </head>
+  <body class="bg-[#FDF7FD]">
+  <div class="container mx-auto px-4">
+    <header class="flex justify-between items-center py-4">
+      <h1 class="text-2xl font-bold">썸앤챗</h1>
+    </header>
+
+    <main>
+      <div class="flex items-center justify-center min-h-screen">
+        <div class="bg-white shadow-lg rounded-lg p-8 max-w-sm w-full">
+          <h1 class="text-gray-800 text-3xl font-semibold mb-6">회원가입</h1>
+          <!-- 수정: form 요소에 id="signup-form" 추가 -->
+          <form id="signup-form">
+            <div class="mb-4">
+              <!-- 이메일 필드에 name 속성 추가 -->
+              <input type="email" name="email" placeholder="이메일" class="input-field w-full px-4 py-2 mb-2" required>
+            </div>
+            <div class="mb-4">
+              <!-- 비밀번호 필드에 name 속성 추가 -->
+              <input type="password" name="password" placeholder="비밀번호" class="input-field w-full px-4 py-2 mb-2" required>
+            </div>
+           <div class="mb-4">
+              <!-- 비밀번호 확인 필드에 name 속성 추가 (필요에 따라) -->
+              <input type="password" name="confirmPassword" placeholder="비밀번호 확인" class="input-field w-full px-4 py-2 mb-2" required>
+            </div>
+            <div class="flex items-center justify-between mb-6">
+            <div class="flex gap-4">
+              <!-- 수정: type을 "button"에서 "submit"으로 변경 -->
+              <button type="submit" class="social-button p-2">
+                <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google" class="h-6 w-6">
+              </button>
+              <button type="submit" class="social-button p-2">
+                <img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="Facebook" class="h-6 w-6">
+              </button>
+              <button type="submit" class="social-button p-2">
+                <img src="https://img.icons8.com/ios-filled/50/000000/mac-os.png" alt="Apple" class="h-6 w-6">
+              </button>
+            </div>
+            <!-- 수정: 회원가입 버튼 type을 "submit"으로 변경 -->
+            <button type="submit" class="bg-pink-500 text-white font-semibold py-2 px-6 rounded-lg hover:bg-pink-600">회원가입</button>
+          </div>
+          <div class="text-center text-gray-600">
+            이미 계정이 있으신가요? <a href="/login" class="font-semibold hover:underline">로그인</a>
+          </div>
+          </form>
+          <p id="error-message" style="color: red; margin-top: 1rem;"></p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+      // DOMContentLoaded 이벤트 리스너 추가
+      document.addEventListener("DOMContentLoaded", function () {
+          document.getElementById("signup-form").addEventListener("submit", function (event) {
+              event.preventDefault(); // 기본 이벤트 방지 (페이지 새로고침 방지)
+
+              const email = document.querySelector("input[type='email']").value;
+              const password = document.querySelector("input[type='password']").value;
+              const confirmPassword = document.querySelector("input[name='confirmPassword']").value; // 비밀번호 확인 필드 값
+              const errorMessageElement = document.getElementById("error-message");
+
+              // 비밀번호와 비밀번호 확인 체크
+              if (password !== confirmPassword) {
+                // 오류 메시지 표시
+                if (errorMessageElement) {
+                  errorMessageElement.textContent = "비밀번호와 비밀번호 확인이 일치하지 않습니다.";
+                } else {
+                  console.error("오류 메시지를 표시할 요소를 찾을 수 없음");
+                }
+                return; // 비밀번호 불일치로 인해 폼 제출 중단
+              }
+
+              // POST 요청을 보냅니다.
+              fetch("/signup", {
+                  method: "POST",
+                  body: JSON.stringify({ email, password }),
+                  headers: {
+                      "Content-Type": "application/json"
+                  }
+              })
+              .then(response => response.text())
+              .then(data => {
+                  if (data === "성공") {
+                      // 회원가입 성공 시 실행되는 코드
+                      console.log("회원가입 성공");
+                      // 여기서 로그인 페이지로 리다이렉트하거나 다른 작업을 수행하세요.
+                      window.location.href = "/login";
+                  } else {
+                      // 회원가입 실패 시 실행되는 코드
+                      console.error("회원가입 실패", data);
+
+                      // 오류 메시지를 표시
+                      if (errorMessageElement) {
+                          errorMessageElement.textContent = "회원가입 실패: " + data;
+                      } else {
+                          console.error("오류 메시지를 표시할 요소를 찾을 수 없음");
+                      }
+                  }
+              })
+              .catch(error => {
+                  console.error("오류 발생:", error);
+              });
+          });
+      });
+  </script>
+
+  </body>
+  </html>

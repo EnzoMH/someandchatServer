@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>썸앤챗</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    @media (max-width: 768px) {
+      /* 모바일 화면 크기에 대한 스타일 */
+      .menu-item {
+        font-size: 12px;
+      }
+    }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .menu-item:hover {
+    text-decoration: underline;
+  }
+  .main-content {
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 6rem;
+    }
+
+</style>
+</head>
+<body class="bg-[#FDF7FD]">
+<div class="container mx-auto px-4">
+  <header class="flex justify-between items-center py-4">
+    <h1 class="text-2xl font-bold">썸앤챗</h1>
+    <nav>
+      <ul class="flex space-x-8">
+        <li class="menu-item"><a href="/">홈</a></li>
+        <li class="menu-item"><a href="/someanalysis">썸 분석</a></li>
+        <li class="menu-item"><a href="/chatRoom">채팅</a></li>
+        <li class="menu-item"><a href="/hotplace">핫플레이스</a></li>
+        <li class="menu-item"><a id="logout-button" href="#">로그아웃</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="mt-8">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-semibold">채팅 시작하기</h2>
+      </div>
+    <div class="flex items-center space-x-4">
+    <a href="/makechatbot" class="rounded-full p-4 bg-pink-500 text-white mr-4">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+      </svg>
+    </a>
+      {% for chatroom in chatbot_list %}
+        <a href="/chat/{{ chatroom }}">
+          <div class="flex flex-col items-center">
+            <img src="https://i.pinimg.com/originals/a7/ee/b8/a7eeb85a1d27390ebdf770f8cf31e434.jpg" alt="Profile" class="rounded-full w-16 h-16" style="margin-top: 20px;">
+            <span class="text-center">{{ chatroom }}</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+
+
+
+
+
+
+
+    </section>
+
+    <section class="mt-8">
+      <h2 class="text-lg font-semibold">코디 추천</h2>
+    </section>
+  <section class="main-content">
+    <!-- Fashion Recommendation Section -->
+        <div>
+        <div class="grid grid-cols-2 gap-4">
+            <img src="https://image.musinsa.com/mfile_s01/2019/01/23/562ac7d273c32e1758ff48d9df396e16180355.jpg" alt="fashion" class="rounded-lg col-span-1">
+            <img src="https://image.musinsa.com/mfile_s01/2020/01/29/f252cbfc4b5c13ae39ff948cc7d8014c153002.jpg" alt="fashion" class="rounded-lg col-span-1">
+        </div>
+        <p class="text-gray-600 text-sm mt-2">
+            무심하게 툭 걸치기만 해도 스타일을 받쳐주는 겨울 아이템, 꾸민 듯 안 꾸민 듯 ‘꾸안꾸’ 매력 발산! 따뜻하고 깔끔한 윈터 스타일링.
+        </p>
+    </div>
+  </section>
+    <section class="main-content">
+    <div>
+        <div class="grid grid-cols-2 gap-4">
+            <img src="https://image.musinsa.com/mfile_s01/2018/09/04/9c3c0da200c92b4703ae40246d591184162356.jpg" alt="fashion" class="rounded-lg col-span-1">
+            <img src="https://image.musinsa.com/mfile_s01/2018/09/04/664ae8c982121da3fca221a419faff92162504.jpg" alt="fashion" class="rounded-lg col-span-1">
+        </div>
+        <p class="text-gray-600 text-sm mt-2">
+            가을과 어울리는 스트리트 패션을 시작으로, 감성+아이템이 더해진 데일리룩을 만나보세요. 이 가을에도 신나는 패션을 즐겨보세요!
+        </p>
+    </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // JavaScript 코드를 추가합니다.
+  document.addEventListener("DOMContentLoaded", function () {
+    // 로그아웃 버튼을 클릭했을 때
+    const logoutButton = document.querySelector("#logout-button");
+    if (logoutButton) {
+      logoutButton.addEventListener("click", function () {
+        // /logout 엔드포인트로 POST 요청을 보냅니다.
+        fetch("/logout", {
+          method: "POST",
+        })
+          .then(function (response) {
+            if (response.ok) {
+              // 로그아웃 성공 시 /login 페이지로 리디렉션합니다.
+              window.location.href = "/login";
+            } else {
+              // 로그아웃 실패 또는 이미 로그아웃된 경우 처리할 내용을 추가합니다.
+              console.error("로그아웃 실패 또는 이미 로그아웃된 상태입니다.");
+            }
+          })
+          .catch(function (error) {
+            console.error("로그아웃 요청 중 오류 발생:", error);
+          });
+      });
+    }
+  });
+</script>
+</body>
+</html>

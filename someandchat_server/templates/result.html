@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>썸앤챗</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    @media (max-width: 768px) {
+      /* 모바일 화면 크기에 대한 스타일 */
+      .menu-item {
+        font-size: 12px;
+      }
+      .card {
+        width: 340px;
+        padding: 1rem;
+      }
+      .text-xl {
+        font-size: 1.25rem;
+      }
+      .text-4xl {
+        font-size: 1.5rem;
+      }
+      .py-3 {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+      }
+      .px-6 {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+  @media (min-width: 769px) {
+    .card {
+      width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .subti {
+    margin-top: 5rem; /* 썸 분석 텍스트 아래 여백 추가 */
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .menu-item:hover {
+    text-decoration: underline;
+  }
+  .main-content {
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .card {
+        display: flex; /* Flexbox 추가 */
+        flex-direction: column; /* 수직 정렬을 위해 열 방향으로 설정 */
+        align-items: center; /* 수직 정렬을 위해 중앙 정렬 */
+        justify-content: center; /* 수직 정렬을 위해 중앙 정렬 */
+        transition: box-shadow 0.3s ease;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1rem; /* 추가된 부분 */
+    }
+    .card:hover {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+</style>
+</head>
+<body class="bg-[#FDF7FD]">
+<div class="container mx-auto px-4">
+  <header class="flex justify-between items-center py-4">
+    <h1 class="text-2xl font-bold">썸앤챗</h1>
+    <nav>
+      <ul class="flex space-x-8">
+        <li class="menu-item"><a href="/">홈</a></li>
+        <li class="menu-item"><a href="/someanalysis">썸 분석</a></li>
+        <li class="menu-item"><a href="/chatRoom">채팅</a></li>
+        <li class="menu-item"><a href="/hotplace">핫플레이스</a></li>
+        <li class="menu-item"><a id="logout-button" href="#">로그아웃</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="mt-16 p-6 md:p-24">
+    <div class="text-center">
+      <div class="inline-block card bg-white">
+        <h2 class="subti text-2xl md:text-4xl font-semibold mb-4">호감도: {{persent}}</h2>
+        <p class="mb-4 md:mb-6 text-lg md:text-xl"><br>{{ sentence.replace("#", "<br><br>")|safe }}<br><br><br><br></p>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+
+</script>
+</body>
+</html>

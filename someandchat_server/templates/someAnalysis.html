@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>썸앤챗</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    @media (max-width: 768px) {
+      /* 모바일 화면 크기에 대한 스타일 */
+      .menu-item {
+        font-size: 12px;
+      }
+      .card {
+        width: 340px;
+        padding: 1rem;
+      }
+      .text-xl {
+        font-size: 1.25rem;
+      }
+      .text-4xl {
+        font-size: 1.5rem;
+      }
+      .py-3 {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+      }
+      .px-6 {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+  @media (min-width: 769px) {
+    .card {
+      width: 500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .subti {
+    margin-top: 5rem; /* 썸 분석 텍스트 아래 여백 추가 */
+  }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .menu-item:hover {
+    text-decoration: underline;
+  }
+  .main-content {
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .card {
+        display: flex; /* Flexbox 추가 */
+        flex-direction: column; /* 수직 정렬을 위해 열 방향으로 설정 */
+        align-items: center; /* 수직 정렬을 위해 중앙 정렬 */
+        justify-content: center; /* 수직 정렬을 위해 중앙 정렬 */
+        transition: box-shadow 0.3s ease;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        padding: 1rem; /* 추가된 부분 */
+    }
+    .card:hover {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    .button-primary {
+        background-color: #FF6B81;
+        color: white;
+        transition: background-color 0.3s ease;
+        margin-bottom: 5rem; /* 분석하기 버튼 위 여백 추가 */
+    }
+    .button-primary:hover {
+        background-color: #D83A56;
+    }
+</style>
+</head>
+<body class="bg-[#FDF7FD]">
+<div class="container mx-auto px-4">
+  <header class="flex justify-between items-center py-4">
+    <h1 class="text-2xl font-bold">썸앤챗</h1>
+    <nav>
+      <ul class="flex space-x-8">
+        <li class="menu-item"><a href="/">홈</a></li>
+        <li class="menu-item"><a href="/someanalysis">썸 분석</a></li>
+        <li class="menu-item"><a href="/chatRoom">채팅</a></li>
+        <li class="menu-item"><a href="/hotplace">핫플레이스</a></li>
+        <li class="menu-item"><a id="logout-button" href="#">로그아웃</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="mt-16 p-6 md:p-24">
+    <div class="text-center">
+      <div class="inline-block card bg-white">
+        <h2 class="subti text-2xl md:text-4xl font-semibold mb-4">썸 분석</h2>
+        <p class="mb-4 md:mb-6 text-lg md:text-xl"><br>썸인지 아닌지 궁금하셨나요?<br><br>카톡 내역으로<br>상대방과의 사이를 분석해드립니다!<br><br></p>
+        <button class="button-primary py-2 md:py-3 px-4 md:px-6 rounded-lg text-lg md:text-2xl" id="analyze-button">분석하기</button>
+        <!-- 파일 입력 필드 (숨겨져 있음) -->
+        <input type="file" id="file-input" style="display: none;" accept=".txt">
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  // JavaScript 코드를 추가합니다.
+  document.addEventListener("DOMContentLoaded", function () {
+    // 로그아웃 버튼을 클릭했을 때
+    const logoutButton = document.querySelector("#logout-button");
+    if (logoutButton) {
+      logoutButton.addEventListener("click", function () {
+        // /logout 엔드포인트로 POST 요청을 보냅니다.
+        fetch("/logout", {
+          method: "POST",
+        })
+          .then(function (response) {
+            if (response.ok) {
+              // 로그아웃 성공 시 /login 페이지로 리디렉션합니다.
+              window.location.href = "/login";
+            } else {
+              // 로그아웃 실패 또는 이미 로그아웃된 경우 처리할 내용을 추가합니다.
+              console.error("로그아웃 실패 또는 이미 로그아웃된 상태입니다.");
+            }
+          })
+          .catch(function (error) {
+            console.error("로그아웃 요청 중 오류 발생:", error);
+          });
+      });
+    }
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    // 파일 입력 필드와 분석하기 버튼 찾기
+    const fileInput = document.getElementById('file-input');
+    const analyzeButton = document.getElementById('analyze-button');
+
+    analyzeButton.addEventListener('click', function () {
+      fileInput.click(); // 파일 입력 필드 활성화
+    });
+
+    fileInput.addEventListener('change', function () {
+      const file = fileInput.files[0]; // 선택된 파일 가져오기
+      if (file) {
+        const formData = new FormData();
+        formData.append('file', file); // 폼 데이터에 파일 추가
+
+        // 파일을 '/model' 엔드포인트로 보내기
+        fetch('/model', {
+          method: 'POST',
+          body: formData,
+        })
+        .then(response => {
+          if (!response.ok) {
+            return response.json().then(errorData => {
+              throw new Error(errorData.error || '서버에서 응답을 처리하는데 실패했습니다.');
+            });
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data.error) {
+            alert('오류: ' + data.error);
+          } else if (data.result) {
+            // 결과에 따라 지정된 URL로 리디렉션
+            window.location.href = `/result/${data.result}`;
+          }
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+      }
+    });
+  });
+</script>
+</body>
+</html>

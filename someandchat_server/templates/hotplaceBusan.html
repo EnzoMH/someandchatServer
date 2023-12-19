@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>썸앤챗</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    @media (max-width: 768px) {
+      /* 모바일 화면 크기에 대한 스타일 */
+      .menu-item {
+        font-size: 12px;
+      }
+    }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .menu-item:hover {
+    text-decoration: underline;
+  }
+  .main-content {
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+</head>
+<body class="bg-[#FDF7FD]">
+<div class="container mx-auto px-4">
+  <header class="flex justify-between items-center py-4">
+    <h1 class="text-2xl font-bold">썸앤챗</h1>
+    <nav>
+      <ul class="flex space-x-8">
+        <li class="menu-item"><a href="/">홈</a></li>
+        <li class="menu-item"><a href="/someanalysis">썸 분석</a></li>
+        <li class="menu-item"><a href="/chatRoom">채팅</a></li>
+        <li class="menu-item"><a href="/hotplace">핫플레이스</a></li>
+        <li class="menu-item"><a id="logout-button" href="#">로그아웃</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="mt-16">
+      <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-10">✨지금! 핫 플레이스📸</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Place 1 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://www.visitbusan.net/uploadImgs/files/cntnts/20230508183215090_wufrotr" alt="송도해상케이블카" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold mb-2">송도 해상 케이블카</h2>
+                    <p class="text-gray-700 mb-4">🌊🚡 청량미의 정점, 오션뷰와 함께하는 투명 케이블카! 🌟💙<br>🚠 푸른 바다 위를 가로지르는 경험!</p>
+                </div>
+            </div>
+            <!-- Place 2 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://www.visitbusan.net/uploadImgs/files/cntnts/20191229153531987_oen" alt="해운대" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold mb-2">해운대 해수욕장</h2>
+                    <p class="text-gray-700 mb-4">🌊 부산 바다의 정석 🏖<br>부산의 명소! 우리나라 최고의 피서지🌴</p>
+                </div>
+            </div>
+            <!-- Place 3 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://www.lavalsehotel.co.kr/storage/app/public/lavalse/contents/documents/ko/948fbc16-9597-45db-887e-87dc7b5ef0ac/79/e0/20190920093956c4b8b75de4cab784634cc194c73148c4cf62e11c.jpg" alt="자갈치시장" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold mb-2">자갈치 시장</h2>
+                    <p class="text-gray-700 mb-4">🐟 활력이 넘치는 부산 최대의 수산시장! 🍤<br>🦑활기찬 분위기와 신선한 해산물로 가득 찬 곳!</p>
+                </div>
+            </div>
+            <!-- Place 4 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://a.cdn-hotels.com/gdcs/production37/d1169/1dcbfef5-2070-48ce-8d62-3e0fffa21797.jpg?impolicy=fcrop&w=800&h=533&q=medium" alt="감천문화마을" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold mb-2">감천 문화마을</h2>
+                    <p class="text-gray-700 mb-4">🌈🎨 예술과 역사가 숨 쉬는 곳! 🏠✨<br>감천 문화마을에서 지형과 예술의 환상적인 조화를 경험하세요! 🌿🖌️</p>
+                </div>
+            </div>
+            <!-- Place 5 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://a.cdn-hotels.com/gdcs/production194/d969/ce3eef2e-2e5d-44c3-b0ee-99c3d3bb991e.jpg?impolicy=fcrop&w=800&h=533&q=medium" alt="해동용궁사" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold mb-2">해동용궁사</h2>
+                    <p class="text-gray-700 mb-4">🌅🌊 바다와 마주한 신비의 사찰 🙏💙<br>🌊🏯 숲길과 십이지신상을 따라 108 계단을 내려가며, 마치 용궁으로 들어가는 듯한 신비한 경험!</p>
+                </div>
+            </div>
+            <!-- Place 6 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://a.cdn-hotels.com/gdcs/production94/d1224/9d7e0a97-7cd0-4f58-8676-e8f6c1a0d00a.jpg?impolicy=fcrop&w=800&h=533&q=medium" alt="광안리해변" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold mb-2">광안리 해변</h2>
+                    <p class="text-gray-700 mb-4">🌌🌊 황홀한 경치의 로맨틱한 해변 🏖️✨<br>부산의 밤을 화려하게 수놓는 광안리해수욕장에서 로맨틱한 순간들을 경험하세요! 🌃💖</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // JavaScript 코드를 추가합니다.
+  document.addEventListener("DOMContentLoaded", function () {
+    // 로그아웃 버튼을 클릭했을 때
+    const logoutButton = document.querySelector("#logout-button");
+    if (logoutButton) {
+      logoutButton.addEventListener("click", function () {
+        // /logout 엔드포인트로 POST 요청을 보냅니다.
+        fetch("/logout", {
+          method: "POST",
+        })
+          .then(function (response) {
+            if (response.ok) {
+              // 로그아웃 성공 시 /login 페이지로 리디렉션합니다.
+              window.location.href = "/login";
+            } else {
+              // 로그아웃 실패 또는 이미 로그아웃된 경우 처리할 내용을 추가합니다.
+              console.error("로그아웃 실패 또는 이미 로그아웃된 상태입니다.");
+            }
+          })
+          .catch(function (error) {
+            console.error("로그아웃 요청 중 오류 발생:", error);
+          });
+      });
+    }
+  });
+</script>
+</body>
+</html>

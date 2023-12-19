@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>썸앤챗</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+    @media (max-width: 768px) {
+      /* 모바일 화면 크기에 대한 스타일 */
+      .menu-item {
+        font-size: 12px;
+      }
+    }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .menu-item:hover {
+    text-decoration: underline;
+  }
+  .main-content {
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+</style>
+</head>
+<body class="bg-[#FDF7FD]">
+<div class="container mx-auto px-4">
+  <header class="flex justify-between items-center py-4">
+    <h1 class="text-2xl font-bold">썸앤챗</h1>
+    <nav>
+      <ul class="flex space-x-8">
+        <li class="menu-item"><a href="/">홈</a></li>
+        <li class="menu-item"><a href="/someanalysis">썸 분석</a></li>
+        <li class="menu-item"><a href="/chatRoom">채팅</a></li>
+        <li class="menu-item"><a href="/hotplace">핫플레이스</a></li>
+        <li class="menu-item"><a id="logout-button" href="#">로그아웃</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="mt-16">
+      <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-center mb-10">✨지금! 핫 플레이스📸</h1>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Place 1 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://mblogthumb-phinf.pstatic.net/MjAyMTA1MDVfMTMx/MDAxNjIwMTk4NTk1MzQy.N_Ov7LvBTIr3B0ERGpJHR8AMRDKEN6nT7aLRuhJNAbYg.K6pyxCusJefbLM0X6I8Ugpdx01RQ3WfXkYcw4YidkLIg.JPEG.eee7082/%EC%A0%9C%EC%A3%BC_%EC%9D%BC%EC%9B%94%EC%84%A0%EC%85%8B%EB%B9%84%EC%B9%98.jpg?type=w800" alt="일월선셋비치" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold mb-2">애월 일월선셋비치</h2>
+                    <p class="text-gray-700 mb-4">🍹🌅 해변에서 낭만적인 칵테일 한 잔! 🌊✨<br>🏖️ 해변의 부드러운 모래 위에서, 칵테일과 함께하는 시간 🏖️</p>
+                </div>
+            </div>
+            <!-- Place 2 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://blog.kakaocdn.net/dn/XfkC2/btqCgSThPcE/Wdnk2ST6lFctZsMEsG5bMK/img.jpg" alt="981파크" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold mb-2">9.81파크</h2>
+                    <p class="text-gray-700 mb-4">🏁 현실 카트라이더?? 짜릿한 레이싱! 🚗<br>🔥 상상만 해왔던 레이싱을 제주의 아름다운 트랙에서!</p>
+                </div>
+            </div>
+            <!-- Place 3 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://api.cdn.visitjeju.net/photomng/imgpath/201908/06/c3b686e5-4d17-46f4-9e96-1de49d6af809.jpg" alt="오설록티뮤지엄" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold mb-2">오설록 티뮤지엄</h2>
+                    <p class="text-gray-700 mb-4">🌿✨ 제주 녹차문화의 중심! ✨🌿<br>드넓은 녹차 밭!🌱 녹차 덕후들이라면 주목! 🍵</p>
+                </div>
+            </div>
+            <!-- Place 4 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://a.cdn-hotels.com/gdcs/production165/d1613/bc87539d-83f9-4707-be2d-0e4d1f4ad42e.jpg" alt="천지연 폭포" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold mb-2">천지연 폭포</h2>
+                    <p class="text-gray-700 mb-4">🌊 눈과 귀가 정화되는 자연 경관이 펼쳐지는 곳 🌊<br>🍃 마음의 평온을 주는 물이 흐르는 소리와 폭포의 장엄한 광경</p>
+                </div>
+            </div>
+            <!-- Place 5 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F99C8AA475BC89D5829" alt="천지연 폭포" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold mb-2">춘심이네</h2>
+                    <p class="text-gray-700 mb-4">🍽️ 커다란 갈치와 숟가락 해체쇼! ✨<br>🔥 제주의 신선한 갈치를 맛보세요!</p>
+                </div>
+            </div>
+            <!-- Place 6 -->
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <img src="https://a.cdn-hotels.com/gdcs/production53/d543/00642dc8-a90b-4554-b004-4b0f866e9480.jpg" alt="성산 일출봉" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold mb-2">성산 일출봉</h2>
+                    <p class="text-gray-700 mb-4">🎨 한 폭의 수채화처럼 펼쳐지는 성산 일출봉의 아름다움<br>🌿 제주도의 경치 하면 바로 이곳!</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // JavaScript 코드를 추가합니다.
+  document.addEventListener("DOMContentLoaded", function () {
+    // 로그아웃 버튼을 클릭했을 때
+    const logoutButton = document.querySelector("#logout-button");
+    if (logoutButton) {
+      logoutButton.addEventListener("click", function () {
+        // /logout 엔드포인트로 POST 요청을 보냅니다.
+        fetch("/logout", {
+          method: "POST",
+        })
+          .then(function (response) {
+            if (response.ok) {
+              // 로그아웃 성공 시 /login 페이지로 리디렉션합니다.
+              window.location.href = "/login";
+            } else {
+              // 로그아웃 실패 또는 이미 로그아웃된 경우 처리할 내용을 추가합니다.
+              console.error("로그아웃 실패 또는 이미 로그아웃된 상태입니다.");
+            }
+          })
+          .catch(function (error) {
+            console.error("로그아웃 요청 중 오류 발생:", error);
+          });
+      });
+    }
+  });
+</script>
+</body>
+</html>

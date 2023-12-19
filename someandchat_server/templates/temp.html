@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{chatbot_name}}와의 채팅방</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffe3e3 0%, #ffafbd 100%);
+        }
+        .message {
+            max-width: 75%;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 1rem;
+            color: #333;
+        }
+        .message.sent {
+            background-color: #FF8C8C;
+            align-self: flex-end;
+        }
+        .message.received {
+            background-color: #ffffff;
+            align-self: flex-start;
+            border: 1px solid #ffafbd;
+        }
+        .chat-header {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background-color: #ffffff;
+            border-bottom: 1px solid #ffafbd;
+        }
+        .chat-header img {
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        .back-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            margin-right: 1rem;
+            background-color: #ffafbd;
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        /* Adjusting the back button arrow to be centered */
+        .back-button svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-6 flex flex-col">
+    <div class="chat-header">
+        <a href="/chatRoom" class="back-button">
+            <!-- Using SVG for the back arrow to ensure proper alignment -->
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </a>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6uEvqX5NhJ13sU1FbTHGS5akcJmC2A7LpQA&usqp=CAU" alt="Profile Picture" width="50" max-width="50"><!--https://via.placeholder.com/50-->
+        <h1 class="text-xl font-semibold">{{chatbot_name}}</h1>
+    </div>
+    <div id="chat" class="flex-1 p-6 space-y-2 overflow-auto flex flex-col-reverse">
+    </div>
+    <div class="mt-6">
+        <input type="text" id="messageInput" placeholder="메시지를 입력해주세요" class="w-full p-3 pl-8 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-300" />
+    </div>
+    <script>
+        // 채팅 기록을 JavaScript 변수로 변환
+        const chatHistory = {{ chat_history | tojson | safe }};
+
+        // 페이지 로드 시 채팅 기록 불러오기
+        window.onload = function() {
+            chatHistory.forEach(chat => {
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('message', 'sent');
+                userMessage.textContent = chat.user;
+                document.getElementById('chat').prepend(userMessage);
+
+                const assistantMessage = document.createElement('div');
+                assistantMessage.classList.add('message', 'received');
+                assistantMessage.textContent = chat.assistant;
+                document.getElementById('chat').prepend(assistantMessage);
+            });
+        };
+        const chat = document.getElementById('chat');
+        const messageInput = document.getElementById('messageInput');
+        const chatbot_name = "{{chatbot_name}}";
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const message = messageInput.value.trim();
+                if (message) {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('message', 'sent');
+                    messageElement.textContent = message;
+                    chat.prepend(messageElement); // Prepend to keep messages from bottom to top
+                    messageInput.value = '';
+                    // 프론트엔드에서 플라스크 API로 메시지를 보내는 부분
+                    fetch('/chat/send_message', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `message=${encodeURIComponent(message)}&chatbot_name=${encodeURIComponent(chatbot_name)}`,
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const messageElement = document.createElement('div');
+                        messageElement.classList.add('message', 'received');
+                        messageElement.textContent = data.message;
+                        chat.prepend(messageElement);
+                        messageInput.value = '';
+                    })
+                    .catch(error => console.error('Error:', error));
+                }
+            }
+        });
+    </script>
+</body>
+</html>

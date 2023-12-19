@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>썸앤챗</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+    @media (max-width: 768px) {
+      /* 모바일 화면 크기에 대한 스타일 */
+      .menu-item {
+        font-size: 12px;
+      }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .fade-in {
+      animation: fadeIn 2s ease-in-out;
+    }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .menu-item:hover {
+    text-decoration: underline;
+  }
+  .main-content {
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .input-field {
+      border: 2px solid #00000020;
+      background-color: #00000010;
+      border-radius: 8px;
+    }
+    .input-field::placeholder {
+      color: #00000090;
+    }
+    .social-button {
+      border: 2px solid #00000020;
+      border-radius: 9999px;
+    }
+</style>
+</head>
+<body class="bg-[#FDF7FD]">
+<div class="container mx-auto px-4">
+  <header class="flex justify-between items-center py-4">
+    <h1 class="text-2xl font-bold">썸앤챗</h1>
+  </header>
+
+  <main>
+    <div class="flex items-center justify-center min-h-screen">
+      <div class="fade-in bg-white shadow-lg rounded-lg p-8 max-w-sm w-full">
+        <h1 class="text-gray-800 text-4xl font-semibold mb-8">로그인</h1>
+        <form id="login-form">
+          <div class="mb-4">
+            <input type="email" placeholder="이메일" class="input-field w-full px-4 py-2 mb-2" required>
+          </div>
+          <div class="mb-4">
+            <input type="password" placeholder="비밀번호" class="input-field w-full px-4 py-2 mb-2" required>
+          </div>
+          <div class="flex justify-between items-center mb-6">
+            <a href="#" class="text-gray-600 text-sm hover:underline">비밀번호를 잊어버렸나요?</a>
+              <button type="submit" class="bg-pink-500 text-white font-semibold py-2 px-6 rounded-lg hover:bg-pink-600">로그인</button>
+          </div>
+          <div class="flex justify-center gap-4 mb-4">
+            <button type="button" class="social-button p-2">
+              <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google" class="h-6 w-6">
+            </button>
+            <button type="button" class="social-button p-2">
+              <img src="https://img.icons8.com/color/48/000000/facebook-new.png" alt="Facebook" class="h-6 w-6">
+            </button>
+            <button type="button" class="social-button p-2">
+              <img src="https://img.icons8.com/ios-filled/50/000000/mac-os.png" alt="Apple" class="h-6 w-6">
+            </button>
+          </div>
+          <div class="text-center text-gray-600">
+            처음오셨나요? <a href="/register" class="font-semibold hover:underline">회원가입</a>
+          </div>
+        </form>
+        <p id="error-message" style="color: red; margin-top: 1rem;"></p>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<script>
+  // DOMContentLoaded 이벤트 리스너 추가
+  document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("login-form").addEventListener("submit", function (event) {
+        event.preventDefault(); // 기본 이벤트 방지 (페이지 새로고침 방지)
+        const email = document.querySelector("input[type='email']").value;
+        const password = document.querySelector("input[type='password']").value;
+        const errorMessageElement = document.getElementById("error-message");
+
+
+         // POST 요청을 보냅니다.
+        fetch("/loginfire", {
+            method: "POST",
+            body: JSON.stringify({ email, password }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data === "성공") {
+                // 회원가입 성공 시 실행되는 코드
+                console.log("로그인 성공");
+                // 여기서 로그인 페이지로 리다이렉트하거나 다른 작업을 수행하세요.
+                window.location.href = "/";
+            } else {
+                // 회원가입 실패 시 실행되는 코드
+                console.error("로그인 실패", data);
+
+                // 오류 메시지를 표시
+                if (errorMessageElement) {
+                    errorMessageElement.textContent = "로그인 실패: " + data;
+                } else {
+                    console.error("오류 메시지를 표시할 요소를 찾을 수 없음");
+                }
+            }
+        })
+        .catch(error => {
+            console.error("오류 발생:", error);
+        });
+    });
+});
+</script>
+</body>
+</html>
